@@ -1,0 +1,114 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background:white;
+    border: 1px solid #970;
+    height:50px;
+    display: flex;
+    justify-content: space-evenly;
+    width:100%;
+}
+
+a {
+    color:#000;
+    text-decoration: none;
+    font-size: 1.5em;
+    line-height: 50px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+    line-height:3em;
+    height:3em;
+    font-family: "Poiret One", serif;
+    transition: font-size 0.5s;
+    letter-spacing: -0.03em;
+}
+
+
+h1.shrunk {
+    font-size: 2em;
+}
+
+
+article {
+    width:90%;
+    border: 1px solid black;
+    background: white;
+    margin: 1em 0;
+    padding: 2em;
+}
+
+
+
+h2 {
+    font-family: "Poiret One", serif;
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 1.5rem;
+}
+
+.code h2 {
+    margin:0.5em 0;
+}
+
+p+h2 {
+    margin-top:2em;
+}
+
+p {
+    width:90%;
+    text-align: justify;
+    text-indent: 3em;
+    font: 1.2rem sans-serif;
+    margin:0.5em;
+}
+
+.code {
+    max-width:65ch;
+    padding: 0 1ch;
+    float:right;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font: 1rem monospace;
+    border:1px solid black;
+    margin:0 1em;
+    box-shadow: 2px 2px 5px #777;;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.5;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        font-size:0.6em;
+        font-family: sans-serif;
+    }
+}
+    
+
+@media screen and (max-width: 480px) {
+    body {
+        font-size:0.5em;
+    }
+
+    a{
+        font-size: 1.2em;
+    }
+
+
+}

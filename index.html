@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <a href="#intro">Wstęp</a>
+        <a href="#effect">Co tu się dzieje?</a>
+        <a href="#purpose">Co w tym specjalnego?</a>
+        <a href="#howitworks">Jak to działa?</a>
+        <a href="#details">Technikalia</a>
+    </header>
+
+    <h1 id="head">CSS + JS scroll event handler</h1>
+    <article>
+
+        <div class="code"><h2>Kod:</h2>
+function scrollReact (element){
+    let y = window;
+    let thresholdPassed = false;
+                        
+        return function () {
+            if ((y.scrollY>50)!==thresholdPassed) {
+            thresholdPassed = !thresholdPassed;
+            if(thresholdPassed) {
+                    element.classList.add('shrunk');
+            } else {
+                    element.classList.remove('shrunk');
+            }
+       }
+    }
+}
+                        
+window.onscroll = scrollReact(document.querySelector("h1"));
+        </div>
+
+        <h2 id="intro">Wstęp</h2>
+
+        <p>Wydajny, nie obciążający przeglądarki skrypt reagowania na przewinięcie strony 
+            poza wyznaczoną granicę jak i powrotu do niej. 
+        </p>
+        <h2 id="effect">Co tu się dzieje? </h2>
+        <p>Kiedy przewiniesz stronę w dół do poziomu gdzie górny pasek nawigacji znajdzie się poza ekranem
+            nagłówek na artykułem zostanie zmniejszony.<br />
+       "Przywrócenie" widzialności owego przywróci rozmiar nagłówka do pierwotnego stanu.</p>
+            <h2 id="purpose">Co w tym specjalnego?</h2>
+        <p> Wydajność i oszczędność zasobów z jaką cel jest osiągany. Nieostrożne podpięcie funkcji pod window.onscroll może doprowadzić do poważnego obciążenia przeglądarki i 
+            serii nieprzyjemnych skutków ubocznych. Od bardziej skokowego przewijania, po 
+            czasowe lub permanetne zawieszenie strony.<br />
+            Przyczyną tego stanu rzeczy jest częstotliwość z jaką ów event (jak i paru jego innych kolegów) jest odpalany. 
+            Jeżeli połączysz to z event handlerem który wykonuje kosztowne dla przeglądarki operacje, takie jak manipulacja DOM, 
+            to sprawy mogą szybko przybrać paskudny obrót.</p>
+        </p>
+
+        <h2 id="howitworks">Jak to działa?</h2>
+        <p>Skrypt nie odpala swego kodu zmieniającego DOM przy każdym wywołaniu poprzez window.onscroll. 
+            Zamiast tego porównuje stopien pionowego przewinięcia strony z wyznaczoną granicą oraz            
+            poprzednim stanem. Tylko jeżeli owa została przekroczona w stronę przeciwną względem poprzedniego 
+            stanu (przed granicą/ poza granicą) odpowiedni kod zmieniający styl nagłówka zostanie wywołany.
+        </p>
+
+        <h2 id="details">Technikalia</h2>
+        <p>Skrypt używa domknięć aby monitorwać poprzednią pozycję przewijania strony względem granicy (50px w pionie od góry).
+        Służy temu zmienna thresholdPassed w funkcji rodzicu. Dzięki domknięciom zwrócona funkcja dziecko będzie mieć do niej zawsze 
+        dostęp i jej wartość nie ulegnie kasacji po każdym wywołaniu funkcji dziecka przez onscroll event.
+        </p>
+        <p>Funkcja dziecko zaś przy każdym wywołaniu sprawdza czy zadania granica scrollowania została przekroczona, następnie 
+            porównuje rezultat z poprzednim wynikiem tego porównania. To właśnie to ostatnie decyduje o dalszym toku działania.
+            Dopóki rezultat jest ten sam co poprzednio (strona była i nadal jest przed/poza ustaloną granicą), skrypt nie robi nic.
+        </p>
+        <p>Dopiero kiedy porównanie pokazuje zmianę sytuacji następują działania. Poprzedni stan zostaje zmieniony na nowy, przeciwny.
+            Rolą zmiennej treshholdPassed jest bycie przełącznikiem pomiędzy true i false, którego przełączenie wywołuje konkretne działania.
+            Reszta kodu jest prosta - po prostu pożądana zmiana wyglądu strony (dodanie/zabranie klasy css dla głównego nagłówka), 
+            w zależności od tego w jakim stanie jest nasz przełącznik (false jeżeli pasek nawigacji jest nadal widzialny, true jeżeli został
+            przewinięty poza obręb viewportu).
+
+    </article>
+    <footer><a href="https://github.com/Tsumirez">github</a></footer>
+</body>
+
+</html>
